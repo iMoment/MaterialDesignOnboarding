@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  OnboardViewController.swift
 //  MaterialDesignOnboarding
 //
 //  Created by Stanley Pan on 21/11/2016.
@@ -9,27 +9,38 @@
 import UIKit
 import PaperOnboarding
 
-class ViewController: UIViewController, PaperOnboardingDataSource {
+class OnboardViewController: UIViewController, PaperOnboardingDataSource, PaperOnboardingDelegate {
     
     lazy var mainImageView: OnboardingView = {
         let imageView = OnboardingView()
         imageView.dataSource = self
+        imageView.delegate = self
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
     }()
     
-    let startButton: UIButton = {
+    lazy var startButton: UIButton = {
         let button = UIButton()
         button.setTitle("GET STARTED", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 20)
+        button.addTarget(self, action: #selector(handleStartButton), for: .touchUpInside)
         button.alpha = 0
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
+    
+    func handleStartButton() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set("true", forKey: "onboardingComplete")
+        userDefaults.synchronize()
+        
+        let mainAppViewController = MainAppViewController()
+        show(mainAppViewController, sender: self)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +85,34 @@ class ViewController: UIViewController, PaperOnboardingDataSource {
                 ("brush", "Design Your Experience", "Dessert chocolate halvah candy canes. Oat cake powder tart cookie cupcake gummies. Pudding brownie lollipop.", "", backgroundColorSecondPage, UIColor.white, UIColor.white, titleFont, descriptionFont),
                 
                 ("notification", "Stay Up To Date", "Topping pudding marshmallow. Gingerbread chocolate bar croissant. Cookie cheesecake dessert pudding croissant candy sugar plum carrot cake.", "", backgroundColorThirdPage, UIColor.white, UIColor.white, titleFont, descriptionFont)][index]
+    }
+    
+    // MARK: PaperOnboardingDelegate required methods
+    func onboardingConfigurationItem(_ item: OnboardingContentViewItem, index: Int) {
+        
+    }
+    
+    func onboardingWillTransitonToIndex(_ index: Int) {
+        if index == 1 {
+            
+            if self.startButton.alpha == 1 {
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.startButton.alpha = 0
+                    })
+                }
+            }
+        }
+    }
+    
+    func onboardingDidTransitonToIndex(_ index: Int) {
+        if index == 2 {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.8, animations: {
+                    self.startButton.alpha = 1
+                })
+            }
+        }
     }
 }
 
