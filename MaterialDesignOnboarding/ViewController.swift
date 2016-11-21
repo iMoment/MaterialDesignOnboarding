@@ -19,13 +19,26 @@ class ViewController: UIViewController, PaperOnboardingDataSource {
         
         return imageView
     }()
+    
+    let startButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("GET STARTED", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 20)
+        button.alpha = 0
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.addSubview(mainImageView)
+        view.addSubview(startButton)
         
         setupMainImageView()
+        setupStartButton()
     }
     
     // iOS constraints x, y, width, height
@@ -34,6 +47,13 @@ class ViewController: UIViewController, PaperOnboardingDataSource {
         mainImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         mainImageView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         mainImageView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+    }
+    
+    func setupStartButton() {
+        startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -115).isActive = true
+        startButton.widthAnchor.constraint(equalToConstant: 136).isActive = true
+        startButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     // MARK: PaperOnboardingDataSource required methods
