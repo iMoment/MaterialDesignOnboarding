@@ -7,11 +7,31 @@
 //
 
 import UIKit
+import PaperOnboarding
 
 class ViewController: UIViewController {
+    
+    let mainImageView: OnboardingView = {
+        let imageView = OnboardingView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        view.addSubview(mainImageView)
+        
+        setupMainImageView()
+    }
+    
+    // iOS constraints x, y, width, height
+    func setupMainImageView() {
+        mainImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        mainImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        mainImageView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        mainImageView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
 }
