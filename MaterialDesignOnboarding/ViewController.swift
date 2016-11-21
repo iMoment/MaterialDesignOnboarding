@@ -38,7 +38,7 @@ class ViewController: UIViewController, PaperOnboardingDataSource {
     
     // MARK: PaperOnboardingDataSource required methods
     func onboardingItemsCount() -> Int {
-        return 1
+        return 3
     }
     
     func onboardingItemAtIndex(_ index: Int) -> OnboardingItemInfo {
@@ -49,7 +49,11 @@ class ViewController: UIViewController, PaperOnboardingDataSource {
         let titleFont = UIFont(name: "AvenirNext-Bold", size: 24)!
         let descriptionFont = UIFont(name: "AvenirNext-Regular", size: 18)!
         
-        return [("rocket", "A Great Rocket Start", "Jelly beans carrot cake topping biscuit. Chocolate bar carrot cake donut marshmallow halvah. Fruitcake cake chocolate bar candy biscuit jujubes biscuit cake.", "", backgroundColorFirstPage, UIColor.white, UIColor.white, titleFont, descriptionFont)][index]
+        return [("rocket", "A Great Rocket Start", "Jelly beans carrot cake topping biscuit. Chocolate bar carrot cake donut marshmallow halvah. Fruitcake cake chocolate bar candy biscuit jujubes biscuit cake.", "", backgroundColorFirstPage, UIColor.white, UIColor.white, titleFont, descriptionFont),
+                
+                ("brush", "Design Your Experience", "Dessert chocolate halvah candy canes. Oat cake powder tart cookie cupcake gummies. Pudding brownie lollipop.", "", backgroundColorSecondPage, UIColor.white, UIColor.white, titleFont, descriptionFont),
+                
+                ("notification", "Stay Up To Date", "Topping pudding marshmallow. Gingerbread chocolate bar croissant. Cookie cheesecake dessert pudding croissant candy sugar plum carrot cake.", "", backgroundColorThirdPage, UIColor.white, UIColor.white, titleFont, descriptionFont)][index]
     }
 }
 
